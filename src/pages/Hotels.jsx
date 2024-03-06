@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { allListingData } from "../mockData";
 import { Link } from "react-router-dom";
 import { Grid } from "react-loader-spinner";
-import ListingPreviewCard from "../components/ListingPreviewCard";
-import SkeletonLoadingCards from "../components/SkeletonLoadingCards";
+import HotelPreviewCard from "../components/hotel/HotelPreviewCard";
+import SkeletonLoadingCards from "../components/skeleton/SkeletonLoadingCards";
+import { useDispatch } from "react-redux";
+import { saveHotels } from "../redux/actions/hotelActions";
 
 const Hotels = () => {
-    const [hasScroll, setHasScroll] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    console.log(allListingData.length);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(saveHotels(allListingData));
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
+    }, []);
     return (
-        <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto min-h-[54rem] py-4">
+        <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto h-fit py-4">
             {/* house listing data section */}
             {/* if sub cat listing data is loading else */}
             {isLoading ? (
@@ -22,7 +30,7 @@ const Hotels = () => {
                                 visible={true}
                                 height="80"
                                 width="80"
-                                color="#000"
+                                color="#7377db"
                                 ariaLabel="grid-loading"
                                 radius="12.5"
                                 wrapperStyle={{}}
@@ -43,11 +51,11 @@ const Hotels = () => {
                                 return (
                                     // this will be link to see full details of the listing
                                     <Link
-                                        to={`/booking`}
+                                        to={`/hotel/${listing?._id}`}
                                         key={listing._id}
                                         className=" flex flex-col gap-3 rounded-xl w-full sm:max-w-[300px] md:w-full mx-auto"
                                     >
-                                        <ListingPreviewCard
+                                        <HotelPreviewCard
                                             listingData={listing}
                                         />
                                     </Link>

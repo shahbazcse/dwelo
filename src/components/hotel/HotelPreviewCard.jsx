@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FaRegStar } from "react-icons/fa";
 
-const ListingPreviewCard = ({ listingData }) => {
+const HotelPreviewCard = ({ listingData }) => {
     return (
         <>
             <div className="h-[310px] md:h-[277px] overflow-hidden rounded-xl">
@@ -45,4 +45,4 @@ const ListingPreviewCard = ({ listingData }) => {
     );
 }
 
-export default ListingPreviewCard
+export default HotelPreviewCard
