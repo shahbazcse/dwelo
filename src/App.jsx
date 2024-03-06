@@ -5,6 +5,7 @@ import Hotels from './pages/Hotels';
 import Booking from './pages/Booking';
 import Dashboard from './pages/Dashboard';
 import Navbar from './components/Navbar';
+import HotelDetails from './pages/HotelDetails';
 import Footer from './components/Footer';
 import { useEffect } from 'react';
 
@@ -15,7 +16,8 @@ function App() {
 
   useEffect(() => {
     isAuthenticated && navigate("/")
-  }, [])
+  }, []);
+
   return (
     <div className="App font-[raleway]">
       {!isAuthenticated ?
@@ -28,6 +30,7 @@ function App() {
             <Route path='/' element={<Hotels />} />
             <Route path='/booking' element={<Booking />} />
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/hotel/:id' element={<HotelDetails />} />
           </Routes>
           <Footer />
         </>)}
