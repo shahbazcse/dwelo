@@ -80,7 +80,6 @@ const DatePicker = ({ listingData }) => {
         };
         // handle booking API here
         dispatch(newBooking(data));
-        console.log(data);
         navigate("/booking");
         /*
         Move booking data to /booking
@@ -273,7 +272,7 @@ const DatePicker = ({ listingData }) => {
                             onClick={() => {
                                 handleBooking();
                             }}
-                            className="capitalize py-3 w-full hover:bg-[#888bf5] bg-[#7377db] transition duration-200 ease-in text-white font-medium text-sm rounded-md"
+                            className="capitalize py-2.5 w-full hover:bg-[#5e62d4] bg-[#7377db] transition duration-200 ease-in text-white font-medium text-lg rounded-md"
                         >
                             book
                         </button>

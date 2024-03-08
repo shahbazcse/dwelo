@@ -5,7 +5,7 @@ import { getHotelDetails } from "../redux/actions/hotelActions";
 import HotelTitle from "../components/hotel/HotelTitle";
 import HotelPhotos from "../components/hotel/HotelPhotos";
 import HotelDescription from "../components/hotel/HotelDescription";
-import DatePicker from "../components/booking/DatePicker";
+import DatePicker from "../components/hotel/DatePicker";
 
 const HotelDetails = () => {
     const dispatch = useDispatch();

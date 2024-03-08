@@ -15,7 +15,6 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    isAuthenticated && navigate("/")
   }, []);
 
   return (
@@ -28,9 +27,9 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Hotels />} />
+            <Route path='/hotel/:id' element={<HotelDetails />} />
             <Route path='/booking' element={<Booking />} />
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/hotel/:id' element={<HotelDetails />} />
           </Routes>
           <Footer />
         </>)}

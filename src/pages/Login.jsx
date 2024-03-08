@@ -110,7 +110,7 @@ const Login = () => {
                         <button
                             disabled={state.loading}
                             onClick={handleLogin}
-                            className="flex justify-center items-center w-full hover:bg-[#888bf5] bg-[#7377db] text-white p-3 rounded-md"
+                            className="flex justify-center items-center w-full hover:bg-[#5e62d4] bg-[#7377db] text-white p-3 rounded-md"
                         >
                             {state.loading ? (<TailSpin visible={true}
                                 height="24"

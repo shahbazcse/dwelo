@@ -7,6 +7,7 @@ export const newBooking = (data) => async (dispatch) => {
         nightStaying: data?.nightsStaying,
         guestNumber: data?.totalGuest,
         basePrice: data?.reservationBasePrice,
+        listingData: data?.listingData
     }
     dispatch({
         type: "NEW_BOOKING_DATA",
