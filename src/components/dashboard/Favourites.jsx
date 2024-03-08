@@ -5,7 +5,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { Button } from '../ui/button';
 
 const Favourites = () => {
-    const isFavorited = true;
     return (
         <div className='font-[roboto] tracking-wide w-full'>
             <ScrollArea className="h-[38.3rem] mr-1">
