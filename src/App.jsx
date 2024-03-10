@@ -1,5 +1,7 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 import Login from "./pages/Login";
 import Hotels from "./pages/Hotels";
 import Booking from "./pages/Booking";
@@ -7,7 +9,6 @@ import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import HotelDetails from "./pages/HotelDetails";
 import Footer from "./components/Footer";
-import { useEffect } from "react";
 
 function App() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function App() {
           <Footer />
         </>
       )}
+      <Toaster />
     </div>
   );
 }
