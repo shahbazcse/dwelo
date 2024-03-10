@@ -12,7 +12,9 @@ const Hotels = () => {
     const { hotelsData, loader } = useSelector((state) => state.hotels);
 
     useEffect(() => {
-        dispatch(getAllHotels());
+        if (hotelsData.length === 0) {
+            dispatch(getAllHotels());
+        }
     }, []);
     return (
         <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto min-h-screen py-4">
