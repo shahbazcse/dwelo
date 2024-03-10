@@ -1,7 +1,6 @@
 const initialState = {
     hotelsData: [],
     hotelDetails: {},
-    loader: false,
 };
 
 const hotelsReducer = (state = initialState, { type, payload }) => {
@@ -16,12 +15,6 @@ const hotelsReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 hotelDetails: payload,
             };
-        case "SET_LOADER": {
-            return {
-                ...state,
-                loader: !state.loader,
-            };
-        }
         default:
             return state;
     }

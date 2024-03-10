@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Input } from "../ui/input";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SuccessCard from "./SuccessCard";
 import { TailSpin } from "react-loader-spinner";
 import { confirmBooking } from "../../services/bookingService";
 import { addHotelBooking } from "../../services/hotelService";
 
 const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
-    const dispatch = useDispatch();
     const [togglePayment, setTogglePayment] = useState("CC");
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         cardNo: "",
@@ -19,8 +19,6 @@ const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
     });
 
     const newBookingData = useSelector((state) => state.bookings?.newBookingData);
-
-    const { loader } = useSelector((state) => state.user);
 
     const generateRandom = () => {
         setFormData({
@@ -43,13 +41,15 @@ const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
                 formData.email !== "")
         ) {
             // handle payment and api calls here
-            dispatch(confirmBooking(newBookingData));
+            setLoading(true);
+            confirmBooking(newBookingData);
             setTimeout(() => {
-                setShowSuccessCard(!loader);
+                setLoading(false);
+                setShowSuccessCard(true);
             }, 3000);
-            await addHotelBooking(newBookingData.hotelId, {
-                checkIn: newBookingData.checkIn,
-                checkOut: newBookingData.checkOut,
+            await addHotelBooking(newBookingData?.hotelId, {
+                checkIn: newBookingData?.checkIn,
+                checkOut: newBookingData?.checkOut,
             });
         }
     };
@@ -154,7 +154,7 @@ const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
                                 onClick={handleBooking}
                                 className="font-medium text-sm inline-flex items-center justify-center px-3 py-2.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full hover:bg-[#5e62d4] bg-[#7377db] text-white focus:outline-none focus-visible:ring-2"
                             >
-                                {loader ? (
+                                {loading ? (
                                     <TailSpin
                                         visible={true}
                                         height="20"
@@ -187,7 +187,7 @@ const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
                                 onClick={handleBooking}
                                 className="font-medium text-sm inline-flex items-center justify-center px-3 py-2.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full hover:bg-[#5e62d4] bg-[#7377db] text-white focus:outline-none focus-visible:ring-2"
                             >
-                                {loader ? (
+                                {loading ? (
                                     <TailSpin
                                         visible={true}
                                         height="20"

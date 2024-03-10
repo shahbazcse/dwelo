@@ -18,7 +18,7 @@ const BookingHistory = ({ bookings }) => {
                                 >
                                     <div className="flex flex-col items-start justify-center gap-2">
                                         <p className="text-sm text-gray-500">Hotel</p>
-                                        <p className="line-clamp-1">{listingData.title}</p>
+                                        <p className="line-clamp-1">{listingData?.title}</p>
                                     </div>
                                     <div className="flex flex-col items-start justify-center gap-2">
                                         <p className="text-sm text-gray-500">Booking Date</p>

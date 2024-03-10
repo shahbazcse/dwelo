@@ -1,6 +1,5 @@
 const initialState = {
     newBookingData: null,
-    loader: false,
 };
 
 const bookingsReducer = (state = initialState, { type, payload }) => {
@@ -9,12 +8,6 @@ const bookingsReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 newBookingData: payload,
-            };
-        }
-        case "SET_LOADER": {
-            return {
-                ...state,
-                loader: !state.loader,
             };
         }
         default:

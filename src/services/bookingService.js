@@ -21,19 +21,13 @@ export const newBooking = (data) => async (dispatch) => {
     });
 };
 
-export const confirmBooking = (data) => async (dispatch) => {
+export const confirmBooking = async (data) => {
     try {
         const session = JSON.parse(localStorage.getItem("session"));
-        dispatch({ type: "SET_LOADER" });
-        const response = await axios.post(`${BACKEND_API}/user/addBooking`, {
+        await axios.post(`${BACKEND_API}/user/addBooking`, {
             email: session.user.email,
             booking: data,
         });
-        if (response.status === 201) {
-            setTimeout(() => {
-                dispatch({ type: "SET_LOADER" });
-            }, 3000);
-        }
     } catch (error) {
         console.error("[CONFIRM_BOOKING]", error);
     }

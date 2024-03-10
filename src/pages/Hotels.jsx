@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Grid } from "react-loader-spinner";
 import HotelPreviewCard from "../components/hotel/HotelPreviewCard";
@@ -8,17 +8,20 @@ import { getAllHotels } from "../services/hotelService";
 
 const Hotels = () => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
-    const { hotelsData, loader } = useSelector((state) => state.hotels);
+    const { hotelsData } = useSelector((state) => state.hotels);
 
     useEffect(() => {
-        if (hotelsData.length === 0) {
+        setLoading(true);
+        setTimeout(() => {
             dispatch(getAllHotels());
-        }
-    }, []);
+            setLoading(false);
+        }, 2000);
+    }, [dispatch]);
     return (
         <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto min-h-screen py-4">
-            {loader ? (
+            {loading ? (
                 <>
                     {window.innerWidth <= 1080 ? (
                         <div className="flex justify-center items-center h-[80dvh]">
