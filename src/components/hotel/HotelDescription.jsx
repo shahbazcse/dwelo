@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import { amenities } from "./amenitiesApi";
 
@@ -7,9 +7,6 @@ const HotelDescription = ({ listingData }) => {
         <>
             <div className=" flex flex-row justify-between items-center max-h-16">
                 <div className=" flex flex-col gap-1 text-[#222222]">
-                    {/* <h2 className=" text-xl md:text-[22px] font-medium">
-                        Entire Cabin is hosted by {author?.name?.firstName}
-                    </h2> */}
                     <p className=" text-sm md:text-base">
                         {listingData?.floorPlan?.guests} guests ·{" "}
                         {listingData?.floorPlan?.bedrooms} bedroom ·{" "}
@@ -19,7 +16,6 @@ const HotelDescription = ({ listingData }) => {
                 </div>
             </div>
             <hr className=" h-[1.2px] w-full bg-[#dddddd] my-8" />
-            {/* description in short */}
             <div>
                 <p className=" whitespace-pre-wrap">
                     {listingData?.description?.slice(0, 1000)}...
@@ -27,8 +23,6 @@ const HotelDescription = ({ listingData }) => {
             </div>
 
             <hr className=" h-[1.2px] w-full bg-[#dddddd] my-8" />
-
-            {/* amenities / what's this place is offering */}
             <div className=" flex flex-col gap-6">
                 <h2 className="text-[22px] text-[#222222] font-medium">
                     What this place offers
@@ -50,6 +44,6 @@ const HotelDescription = ({ listingData }) => {
             </div>
         </>
     );
-}
+};
 
-export default HotelDescription
+export default HotelDescription;

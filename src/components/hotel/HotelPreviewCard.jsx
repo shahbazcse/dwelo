@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import { FaRegStar } from "react-icons/fa";
+import { IoStar } from "react-icons/io5";
 
 const HotelPreviewCard = ({ listingData }) => {
     return (
@@ -13,7 +13,6 @@ const HotelPreviewCard = ({ listingData }) => {
                 />
             </div>
             <div className=" flex flex-row justify-between items-start w-full">
-                {/* listings details */}
                 <div className=" flex flex-col gap-1">
                     <p className="text-md text-[#222222] font-medium">
                         {listingData?.location?.city?.name},{" "}
@@ -24,25 +23,28 @@ const HotelPreviewCard = ({ listingData }) => {
                         <span className=" font-normal">night</span>
                     </p>
                 </div>
-                {/* ratings / new status */}
                 <div className=" flex flex-row gap-1 items-center">
                     {listingData?.ratings ? (
                         <>
-                            <div className='flex gap-1 items-center justify-center text-white stroke-0 bg-amber-400 px-1.5 py-0.5 rounded-md'>
-                                <FaRegStar size={16} className='mb-0.5' />
-                                <p className="text-md">4</p>
+                            <div className="flex gap-1 items-center justify-center stroke-0 bg-amber-100  px-1.5 py-0.5 rounded-md">
+                                <IoStar size={18} className="mb-0.5 fill-amber-400" />
+                                <p className="text-md text-black mt-0.5">
+                                    {listingData?.ratings}
+                                </p>
                             </div>
                         </>
                     ) : (
                         <>
-                            <FaRegStar size={28} className='text-white stroke-0 px-1.5 py-0.5 bg-amber-400 rounded-md mr-1' />
-                            <p className="text-md text-gray-500">New</p>
+                            <div className="flex gap-1 items-center justify-center stroke-0 bg-amber-100  px-1.5 py-0.5 rounded-md">
+                                <IoStar size={18} className="mb-0.5 fill-amber-400" />
+                                <p className="text-md text-black mt-0.5">New</p>
+                            </div>
                         </>
                     )}
                 </div>
             </div>
         </>
     );
-}
+};
 
-export default HotelPreviewCard
+export default HotelPreviewCard;

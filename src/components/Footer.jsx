@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-
 
 const Footer = () => {
     return (
@@ -45,7 +44,7 @@ const Footer = () => {
             <hr className="bg-[#f7f7f7] mt-10 mb-6" />
             <section className=" flex flex-row flex-wrap justify-between gap-10 px-10 max-w-screen-2xl mx-auto">
                 <div className=" flex flex-row flex-wrap items-center">
-                    <p className='font-[roboto]'>© 2024 Dwelo, Inc.</p>
+                    <p className="font-[roboto]">© 2024 Dwelo, Inc.</p>
                     <span className=" p-3">·</span>
                     <p>Terms</p>
                     <span className=" p-3">·</span>
@@ -55,12 +54,12 @@ const Footer = () => {
                 </div>
                 <div className=" flex flex-row gap-5 min-w-[120px] items-center">
                     <p>English (US)</p>
-                    <FaFacebookSquare className='h-6 w-6 text-blue-600' />
-                    <FaLinkedin className='h-6 w-6 text-blue-700' />
+                    <FaFacebookSquare className="h-6 w-6 text-blue-600" />
+                    <FaLinkedin className="h-6 w-6 text-blue-700" />
                 </div>
             </section>
         </footer>
-    )
-}
+    );
+};
 
-export default Footer
+export default Footer;

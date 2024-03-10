@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -11,28 +10,43 @@ import "react-date-range/dist/theme/default.css";
 import { AiFillStar, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-import { newBooking } from "../../redux/actions/bookingActions";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { newBooking } from "../../services/bookingService";
+import { parseISO } from "date-fns";
+
+function checkAvailability(userCheckIn, userCheckOut, existingBookings) {
+    const userCheckInDate = new Date(userCheckIn);
+    const userCheckOutDate = new Date(userCheckOut);
+
+    for (const booking of existingBookings) {
+        const existingCheckInDate = new Date(booking.checkIn);
+        const existingCheckOutDate = new Date(booking.checkOut);
+
+        if (
+            userCheckInDate < existingCheckOutDate &&
+            userCheckOutDate > existingCheckInDate
+        ) {
+            return false;
+        }
+    }
+    return true;
+}
 
 const DatePicker = ({ listingData }) => {
-    // refs
     const calendarRef = useRef();
     const dropdownRef = useRef();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // handling outside click
     const { state: calendarState, setState: setCalendarState } =
         useOutsideClick(calendarRef);
     const { state: showDropdown, setState: setShowDropdown } =
         useOutsideClick(dropdownRef);
 
-    // guests state is here
     const [guestsNumber, setGuestsNumber] = useState(1);
     const [childrenNumber, setChildrenNumber] = useState(0);
 
-    // dates saving and showing to the dateRange calendar calculation here
     const [selectedDates, setSelectedDates] = useState([
         {
             startDate: new Date(),
@@ -41,15 +55,12 @@ const DatePicker = ({ listingData }) => {
         },
     ]);
 
-    // formatted dates to save in the db
     const formattedStartDate = selectedDates[0]?.startDate?.toISOString();
     const formattedEndDate = selectedDates[0]?.endDate?.toISOString();
 
-    // local dates from fromatted date to show in the ui
     const localStartDate = new Date(formattedStartDate).toLocaleDateString();
     const localEndDate = new Date(formattedEndDate).toLocaleDateString();
 
-    // Function to handle date selection
     const handleSelect = (ranges) => {
         setSelectedDates([ranges.selection]);
     };
@@ -59,16 +70,40 @@ const DatePicker = ({ listingData }) => {
             selectedDates?.[0]?.endDate - selectedDates?.[0]?.startDate
         );
 
-        // turning miliseconds into days
         const calculatedNights = daysInMiliSec / (1000 * 60 * 60 * 24);
         const finalNights = calculatedNights === 0 ? 1 : calculatedNights;
         const calculatedBasePrice = listingData?.basePrice * finalNights;
 
-        return { calculatedBasePrice, calculatedNights }
-    }
+        return { calculatedBasePrice, calculatedNights };
+    };
+
+    const calculateTotalPrice = (nightStaying, hotel) => {
+        const basePrice =
+            parseInt(nightStaying) !== 0
+                ? parseInt(nightStaying) * hotel?.basePrice
+                : hotel?.basePrice;
+
+        const tax =
+            basePrice !== 0
+                ? Math.round((basePrice * 14) / 100)
+                : Math.round((hotel?.basePrice * 14) / 100);
+
+        const totalPrice = basePrice + tax;
+
+        return totalPrice;
+    };
 
     // handle booking
     const handleBooking = () => {
+        if (
+            !checkAvailability(
+                formattedStartDate,
+                formattedEndDate,
+                listingData?.bookedDates
+            )
+        ) {
+            return;
+        }
         const { calculatedBasePrice, calculatedNights } = calculateBooking();
         const data = {
             listingData,
@@ -77,23 +112,33 @@ const DatePicker = ({ listingData }) => {
             nightsStaying: calculatedNights,
             totalGuest: guestsNumber + childrenNumber,
             bookingBasePrice: calculatedBasePrice,
+            bookingDate: new Date(),
+            totalPrice: calculateTotalPrice(calculatedNights, listingData),
         };
         // handle booking API here
         dispatch(newBooking(data));
-        navigate("/booking");
-        /*
-        Move booking data to /booking
-        Make payment and confirm booking
-        On confirmation, show confirmation card,
-        Include dashboard link in confirmation card
-        */
+        navigate(
+            `/booking/${listingData._id}?numberOfGuests=${data.totalGuest}&nightStaying=${data.nightsStaying}&checkin=${data.formattedStartDate}&checkout=${data.formattedEndDate}`
+        );
     };
 
-    useEffect(() => {
-        (async () => {
-            // handle data persistence
-        })();
-    }, [listingData?._id]);
+    const disabledDateRanges = listingData?.bookedDates?.map((obj) => ({
+        startDate: parseISO(obj.checkIn),
+        endDate: parseISO(obj.checkOut),
+    }));
+
+    const disabledDates = disabledDateRanges?.reduce((dates, range) => {
+        const startDate = new Date(range.startDate);
+        const endDate = new Date(range.endDate);
+        const currentDate = new Date(startDate);
+
+        while (currentDate <= endDate) {
+            dates.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        return dates;
+    }, []);
 
     return (
         <>
@@ -101,7 +146,8 @@ const DatePicker = ({ listingData }) => {
                 <div className=" flex felx-row justify-between items-start">
                     <div className=" flex flex-col">
                         <h3 className="tracking-wider text-[22px] text-[#222222] font-semibold">
-                            ${listingData?.basePrice}<span className='text-gray-500 text-sm'> / Night</span>
+                            ${listingData?.basePrice}
+                            <span className="text-gray-500 text-sm"> / Night</span>
                         </h3>
                     </div>
                     <span className=" text-sm text-[#222222] flex flex-row gap-1 items-center mt-2">
@@ -115,8 +161,6 @@ const DatePicker = ({ listingData }) => {
                         )}
                     </span>
                 </div>
-                {/* calender section */}
-
                 {!calendarState && (
                     <div className=" rounded-tl-lg rounded-tr-lg border border-[#b9b9b9] w-full min-h-[60px] mt-6 relative flex flex-col">
                         {/* dates & calendar & guests here */}
@@ -143,9 +187,6 @@ const DatePicker = ({ listingData }) => {
                         </div>
                     </div>
                 )}
-
-                {/* guest selection */}
-
                 {!calendarState && (
                     <div
                         ref={dropdownRef}
@@ -161,7 +202,8 @@ const DatePicker = ({ listingData }) => {
                                         guests
                                     </p>
                                     <p className=" text-sm text-[#222222]">
-                                        {guestsNumber + childrenNumber} {guestsNumber + childrenNumber === 1 ? "guest" : "guests"}
+                                        {guestsNumber + childrenNumber}{" "}
+                                        {guestsNumber + childrenNumber === 1 ? "guest" : "guests"}
                                     </p>
                                 </div>
                                 <div>
@@ -175,7 +217,6 @@ const DatePicker = ({ listingData }) => {
                         </div>
                     </div>
                 )}
-                {/* guests data dropdown */}
                 {showDropdown && (
                     <div
                         ref={dropdownRef}
@@ -183,20 +224,22 @@ const DatePicker = ({ listingData }) => {
                     >
                         <div className=" flex flex-col gap-5">
                             <div className=" flex felx-row items-center justify-between">
-                                {/* adults number here */}
                                 <span>
                                     <p className=" text-base text-[#222222] font-medium">
                                         Adults
                                     </p>
                                     <p className=" text-sm text-[#313131]">Age 13+</p>
                                 </span>
-                                {/* icons */}
+
                                 <span className=" flex flex-row-reverse items-center gap-2">
                                     <button
                                         onClick={() => {
                                             setGuestsNumber((prev) => prev + 1);
                                         }}
-                                        disabled={listingData?.floorPlan?.guests === guestsNumber + childrenNumber}
+                                        disabled={
+                                            listingData?.floorPlan?.guests ===
+                                            guestsNumber + childrenNumber
+                                        }
                                         className={` p-2 rounded-full border border-[#c0c0c0] opacity-90 disabled:cursor-not-allowed disabled:opacity-20`}
                                     >
                                         <AiOutlinePlus size={16} />
@@ -217,20 +260,22 @@ const DatePicker = ({ listingData }) => {
                                 </span>
                             </div>
                             <div className=" flex felx-row items-center justify-between">
-                                {/* children number here */}
                                 <span>
                                     <p className=" text-base text-[#222222] font-medium">
                                         Children
                                     </p>
                                     <p className=" text-sm text-[#313131]">Ages 2-12</p>
                                 </span>
-                                {/* icons */}
+
                                 <span className=" flex flex-row-reverse items-center gap-2">
                                     <button
                                         onClick={() => {
                                             setChildrenNumber((prev) => prev + 1);
                                         }}
-                                        disabled={listingData?.floorPlan?.guests === guestsNumber + childrenNumber}
+                                        disabled={
+                                            listingData?.floorPlan?.guests ===
+                                            guestsNumber + childrenNumber
+                                        }
                                         className=" p-2 rounded-full border border-[#c0c0c0] opacity-90 disabled:cursor-not-allowed disabled:opacity-20"
                                     >
                                         <AiOutlinePlus size={16} />
@@ -251,7 +296,7 @@ const DatePicker = ({ listingData }) => {
                                 </span>
                             </div>
                         </div>
-                        {/* close btn */}
+
                         <div className=" flex justify-end absolute bottom-3 right-2">
                             <button
                                 onClick={() => {
@@ -264,8 +309,6 @@ const DatePicker = ({ listingData }) => {
                         </div>
                     </div>
                 )}
-
-                {/* reservation button */}
                 {!showDropdown && !calendarState && (
                     <div className=" mt-6 flex justify-center rounded-md">
                         <button
@@ -278,8 +321,6 @@ const DatePicker = ({ listingData }) => {
                         </button>
                     </div>
                 )}
-
-                {/* calendar & date picker */}
                 {!calendarState ? null : (
                     <div
                         ref={calendarRef}
@@ -292,6 +333,7 @@ const DatePicker = ({ listingData }) => {
                             onChange={handleSelect}
                             moveRangeOnFirstSelection={false}
                             ranges={selectedDates}
+                            disabledDates={disabledDates}
                             direction="vertical"
                             showDateDisplay={false}
                             minDate={new Date()}
@@ -301,6 +343,6 @@ const DatePicker = ({ listingData }) => {
             </div>
         </>
     );
-}
+};
 
-export default DatePicker
+export default DatePicker;

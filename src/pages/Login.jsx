@@ -1,40 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { userLogin } from "../services/AuthServices";
 import { TailSpin } from "react-loader-spinner";
 
 import Logo from "../assets/logo.png"
+import { loginUser } from "../services/authService";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
     const navigate = useNavigate();
-
-    // const { state, dispatch } = useContext(AppContext);
-
-    const state = {
-        loading: false
-    }
+    const dispatch = useDispatch();
 
     const [form, setForm] = useState({
         email: "",
         password: "",
     });
     const [rememberMe, setRememberMe] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const setTestUser = () => {
         setForm({
-            email: "test@email.com",
-            password: "test123",
+            email: "john@email.com",
+            password: "john@123",
         });
     };
 
     const handleLogin = async () => {
-        // dispatch({ type: "SET_LOADING", payload: true });
-        // const response = await userLogin(form, rememberMe);
-        // dispatch({ type: "UPDATE_USER_SESSION", payload: response });
-        // dispatch({ type: "SET_LOADING", payload: false });
-        // if (response.token) {
-        //     navigate("/connect");
-        // }
+        setLoading(true);
+        const response = await dispatch(loginUser(form, rememberMe));
+        if (response.token) {
+            setTimeout(() => {
+                navigate("/");
+                setLoading(false);
+            }, 3000)
+        }
+        else setLoading(false);
     };
 
     return (
@@ -108,11 +107,11 @@ const Login = () => {
                     </div>
                     <div className="flex flex-col items-center">
                         <button
-                            disabled={state.loading}
+                            disabled={loading}
                             onClick={handleLogin}
                             className="flex justify-center items-center w-full hover:bg-[#5e62d4] bg-[#7377db] text-white p-3 rounded-md"
                         >
-                            {state.loading ? (<TailSpin visible={true}
+                            {loading ? (<TailSpin visible={true}
                                 height="24"
                                 width="24"
                                 color="#FFFFFF"

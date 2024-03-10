@@ -7,6 +7,6 @@ const rootReducer = combineReducers({
     user: userReducer,
     hotels: hotelsReducer,
     bookings: bookingsReducer,
-})
+});
 
 export default rootReducer;
