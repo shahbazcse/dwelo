@@ -25,7 +25,7 @@ const Navbar = () => {
                         dwelo
                     </span>
                 </div>
-                <div className="mx-auto lg:block hidden w-[20rem]">
+                {/* <div className="mx-auto lg:block hidden w-[20rem]">
                     <div className="border-[1px] border-[#dddddd] rounded-full px-5 py-3 flex items-center justify-between shadow hover:shadow-md transition-all">
                         <input
                             className=" focus:outline-none"
@@ -33,7 +33,7 @@ const Navbar = () => {
                         />
                         <Search className="cursor-pointer text-gray-300" />
                     </div>
-                </div>
+                </div> */}
                 <Button
                     variant="outline"
                     className="hidden sm:flex rounded-full px-8 py-6"
