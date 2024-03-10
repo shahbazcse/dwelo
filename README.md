@@ -2,6 +2,8 @@
 
 #### Live App: https://dwelo.vercel.app
 
+#### Backend Repository: https://github.com/shahbazcse/dweloBackend
+
 ## Test Credentials
 - User 1:
   - email: ```john@email.com```
@@ -28,6 +30,14 @@
 
 - Login Page: User 2 logs into the system using the login page.
 - Hotel Availability: After logging in, User 2 can only book hotels based on availability (for a specific hotel, dates that are already booked by User 1 will be made unavailable to User 2).
+
+## App Architecture
+
+### Frontend Architecture
+![Frontend Architecture](https://github.com/shahbazcse/dwelo/blob/main/src/assets/Frontend.jpg?raw=true)
+
+### Backend Architecture
+![Backend Architecture](https://github.com/shahbazcse/dwelo/blob/main/src/assets/Backend.jpg?raw=true)
 
 ## Getting Started
 
