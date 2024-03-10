@@ -22,10 +22,10 @@ const HotelTitle = ({ listingData }) => {
                         )}
                     </p>
                     <span> · </span>
-                    <p className="text-xs sm:text-sm">
+                    {/* <p className="text-xs sm:text-sm">
                         {listingData?.reviews ? listingData?.reviews : "No reviews"}
                     </p>
-                    <span> · </span>
+                    <span> · </span> */}
                     <p className="text-xs sm:text-sm font-medium underline">
                         {listingData?.location?.addressLineOne
                             ? listingData?.location?.addressLineOne
@@ -34,14 +34,14 @@ const HotelTitle = ({ listingData }) => {
                                 : listingData?.location?.country?.name}
                     </p>
                 </div>
-                <div className="col-span-1 md:flex justify-end w-full hidden">
+                {/* <div className="col-span-1 md:flex justify-end w-full hidden">
                     <div className=" flex flex-row-reverse gap-2 items-center cursor-pointer p-2 rounded-md w-[80px] bg-white hover:bg-[#f1f1f1] transition duration-200 ease-in">
                         <p className=" text-sm underline underline-offset-1 font-medium">
                             Save
                         </p>
                         <AiOutlineHeart size={18} />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

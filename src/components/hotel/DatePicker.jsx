@@ -13,6 +13,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { newBooking } from "../../services/bookingService";
 import { parseISO } from "date-fns";
+import toast from "react-hot-toast";
 
 function checkAvailability(userCheckIn, userCheckOut, existingBookings) {
     const userCheckInDate = new Date(userCheckIn);
@@ -102,6 +103,27 @@ const DatePicker = ({ listingData }) => {
                 listingData?.bookedDates
             )
         ) {
+            toast('Rooms Unavailable. Try Other Dates.', {
+                duration: 6000,
+                position: 'bottom-right',
+
+                // Styling
+                style: {},
+                className: 'w-fit',
+
+                // Custom Icon
+                icon: '⚠️',
+
+                iconTheme: {
+                    primary: '#000',
+                    secondary: '#fff',
+                },
+
+                ariaProps: {
+                    role: 'status',
+                    'aria-live': 'polite',
+                },
+            });
             return;
         }
         const { calculatedBasePrice, calculatedNights } = calculateBooking();

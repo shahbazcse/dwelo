@@ -14,19 +14,26 @@ const Login = () => {
         email: "",
         password: "",
     });
-    const [rememberMe, setRememberMe] = useState(false);
+    // const [rememberMe, setRememberMe] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const setTestUser = () => {
+    const setTestUser1 = () => {
         setForm({
             email: "john@email.com",
             password: "john@123",
         });
     };
 
+    const setTestUser2 = () => {
+        setForm({
+            email: "harry@email.com",
+            password: "harry@123",
+        });
+    };
+
     const handleLogin = async () => {
         setLoading(true);
-        const response = await dispatch(loginUser(form, rememberMe));
+        const response = await dispatch(loginUser(form, true));
         if (response.token) {
             setTimeout(() => {
                 navigate("/");
@@ -83,13 +90,13 @@ const Login = () => {
                             }
                         />
                     </div>
-                    <div className="flex justify-between items-center mb-6">
-                        <div className="flex justify-between items-center gap-0.5">
+                    <div className="flex justify-start items-center mb-6 gap-2">
+                        {/* <div className="flex justify-between items-center gap-0.5">
                             <input
                                 type="checkbox"
                                 id="remember-me"
-                                value={rememberMe}
-                                onChange={(e) => setRememberMe(e.target.checked)}
+                            // value={rememberMe}
+                            // onChange={(e) => setRememberMe(e.target.checked)}
                             />
                             <label
                                 className="ml-2 block text-sm text-gray-900"
@@ -97,12 +104,18 @@ const Login = () => {
                             >
                                 Remember Me
                             </label>
-                        </div>
+                        </div> */}
                         <div
-                            onClick={setTestUser}
+                            onClick={setTestUser1}
                             className="text-xs bg-orange-100 hover:bg-orange-200 cursor-pointer rounded-md px-1 py-0.5"
                         >
-                            Test Credentials
+                            Test Credential 1
+                        </div>
+                        <div
+                            onClick={setTestUser2}
+                            className="text-xs bg-orange-100 hover:bg-orange-200 cursor-pointer rounded-md px-1 py-0.5"
+                        >
+                            Test Credential 2
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
