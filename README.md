@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+<h1 align="center">Dwelo</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Live App: https://dwelo.vercel.app
 
-## Available Scripts
+## Test Credentials
+- User 1:
+  - email: ```john@email.com```
+  - password: ```john@123```
+- User 2:
+  - email: ```harry@email.com```
+  - password: ```harry@123```
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+1. **Hotel Booking**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Login Page: User 1 initiates the process by logging in through the dedicated login page.
+- View and Select Hotels: After successful login, the user navigates to the hotel listings page to explore available hotels and select a hotel.
+- Select a Date: User 1 specifies the desired date for the stay, indicating a preference or requirement.
+- Book a Hotel: The final action involves selecting a date and add guest information and completing the booking process.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Booking History**:
 
-### `npm test`
+- Login Page: User 1 logs in again, accessing the system through the login page.
+- View Booking History: Once logged in, the user navigates to the dashboard and check their booking history, reviewing past hotel bookings.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Hotel Availability Feature**:
 
-### `npm run build`
+- Login Page: User 2 logs into the system using the login page.
+- Hotel Availability: After logging in, User 2 can only book hotels based on availability (for a specific hotel, dates that are already booked by User 1 will be made unavailable to User 2).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run Dwelo locally, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone this repository: git clone [https://github.com/shahbazcse/dwelo](https://github.com/shahbazcse/dwelo)
+2. Install the dependencies: npm install
+3. Start the development server: npm start
+4. Open your web browser and visit: http://localhost:3000
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Before you begin, make sure you have the following prerequisites installed on your system:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+• **Node.js and npm**: You can download and install Node.js and npm from nodejs.org.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+• **Git**: You'll need Git to clone the project repository. You can download it from git-scm.com.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+Contributions are welcome! If you would like to enhance or add new features to Dwelo, please follow these steps:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Fork the repository
+2. Create a new branch: git checkout -b feature/your-feature-name
+3. Make your changes
+4. Commit your changes: git commit -m 'Add your commit message'
+5. Push to the branch: git push origin feature/your-feature-name
+6. Open a pull request
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/license/mit/) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+If you have any questions or suggestions regarding Dwelo, please feel free to reach out at cseshahbaz@gmail.com
