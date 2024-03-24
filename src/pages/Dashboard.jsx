@@ -44,7 +44,7 @@ const Dashboard = () => {
                     >
                         Booking History
                     </Button>
-                    {/* <Button onClick={() => setMenu("favourites")} variant={menu === "favourites" ? "default" : "outline"} className="px-4 py-2 rounded-full shadow-sm">Favourites</Button> */}
+                    <Button onClick={() => setMenu("favourites")} variant={menu === "favourites" ? "default" : "outline"} className="px-4 py-2 rounded-full shadow-sm">Favourites</Button>
                     <Button
                         onClick={() => setMenu("profile")}
                         variant={menu === "profile" ? "default" : "outline"}
@@ -76,7 +76,7 @@ const Dashboard = () => {
                     {menu === "booking_history" && (
                         <BookingHistory bookings={userDetails?.bookings} />
                     )}
-                    {/* {menu === "favourites" && <Favourites favourites={userDetails?.favourites} />} */}
+                    {menu === "favourites" && <Favourites favourites={userDetails?.favourites} />}
                     {menu === "profile" && <Profile user={userDetails} />}
                 </div>
             </div>

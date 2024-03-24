@@ -32,31 +32,36 @@ const HotelTitle = ({ listingData }) => {
         dispatch(getUserDetails());
     }, [isProcessing]);
     return (
-        <div className=" flex flex-col text-[#222222]">
+        <div className=" flex flex-col text-[#222222] space-y-2 md:space-y-0">
             <p className="text-xl md:text-2xl font-medium">{listingData?.title}</p>
             <div className=" grid grid-cols-1 md:grid-cols-5 items-center justify-end">
-                <div className=" flex flex-row flex-wrap md:flex-nowrap items-center gap-2 col-span-4">
-                    <p className=" flex flex-row items-center gap-1">
-                        {listingData?.ratings ? (
-                            <>
-                                <AiFillStar size={16} />
-                                <p className=" text-xs sm:text-sm">{listingData?.ratings}</p>
-                            </>
-                        ) : (
-                            <>
-                                <AiFillStar size={16} />
-                                <p className="text-xs sm:text-sm">New</p>
-                            </>
-                        )}
-                    </p>
-                    <span> · </span>
-                    <p className="text-xs sm:text-sm font-medium underline">
-                        {listingData?.location?.addressLineOne
-                            ? listingData?.location?.addressLineOne
-                            : listingData?.location?.addressLineTwo
-                                ? listingData?.location?.addressLineTwo
-                                : listingData?.location?.country?.name}
-                    </p>
+                <div className="flex flex-row items-center justify-between gap-2 col-span-4">
+                    <div className="flex flex-row flex-wrap md:flex-nowrap items-center gap-2 col-span-4">
+                        <p className=" flex flex-row items-center gap-1">
+                            {listingData?.ratings ? (
+                                <>
+                                    <AiFillStar size={16} />
+                                    <p className=" text-xs sm:text-sm">{listingData?.ratings}</p>
+                                </>
+                            ) : (
+                                <>
+                                    <AiFillStar size={16} />
+                                    <p className="text-xs sm:text-sm">New</p>
+                                </>
+                            )}
+                        </p>
+                        <span> · </span>
+                        <p className="text-xs sm:text-sm font-medium underline">
+                            {listingData?.location?.addressLineOne
+                                ? listingData?.location?.addressLineOne
+                                : listingData?.location?.addressLineTwo
+                                    ? listingData?.location?.addressLineTwo
+                                    : listingData?.location?.country?.name}
+                        </p>
+                    </div>
+                    <div onClick={handleSave} className="flex md:hidden mt-2 flex-row-reverse gap-2 items-center cursor-pointer p-2 bg-slate-50 rounded-full transition duration-200 ease-in">
+                        {isSaved ? <AiFillHeart className="fill-red-400" size={18} /> : <AiOutlineHeart size={18} />}
+                    </div>
                 </div>
                 <div className="col-span-1 md:flex justify-end w-full hidden">
                     <div onClick={handleSave} className=" flex flex-row-reverse gap-2 items-center cursor-pointer p-2 rounded-md w-[80px] bg-white hover:bg-[#f1f1f1] transition duration-200 ease-in">
