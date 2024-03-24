@@ -13,3 +13,25 @@ export const getUserDetails = () => async (dispatch) => {
         console.error("[USER_DETAILS]", error);
     }
 };
+
+export const addToFavourite = async (email, hotel) => {
+    try {
+        const response = await axios.post(`${BACKEND_API}/user/addFavourites`, {
+            email, hotel
+        });
+        return response;
+    } catch (error) {
+        console.error("[ADD_FAVOURITE]", error);
+    }
+}
+
+export const removeFavourite = async (email, hotelId) => {
+    try {
+        const response = await axios.post(`${BACKEND_API}/user/removeFavourite`, {
+            email, hotelId
+        });
+        return response;
+    } catch (error) {
+        console.error("[REMOVE_FAVOURITE]", error);
+    }
+}

@@ -1,8 +1,37 @@
-import React from "react";
+import { addToFavourite, getUserDetails, removeFavourite } from "../../services/userService";
+import React, { useEffect, useState } from "react";
 
-import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
+import { AiFillStar, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 
 const HotelTitle = ({ listingData }) => {
+    const [isProcessing, setIsProcessing] = useState(false);
+    const dispatch = useDispatch();
+    const { userDetails } = useSelector((state) => state.user);
+
+    const isSaved = userDetails?.favourites.find((hotel) => hotel?.title === listingData?.title);
+
+    async function handleSave() {
+        console.log("Reached");
+        if (!isProcessing) {
+            setIsProcessing(true);
+            if (!isSaved) {
+                const response = await addToFavourite(userDetails?.email, listingData);
+                if (response.status === 201) {
+                    setIsProcessing(false);
+                }
+            } else {
+                const response = await removeFavourite(userDetails?.email, listingData._id);
+                if (response.status === 200) {
+                    setIsProcessing(false);
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        dispatch(getUserDetails());
+    }, [isProcessing]);
     return (
         <div className=" flex flex-col text-[#222222]">
             <p className="text-xl md:text-2xl font-medium">{listingData?.title}</p>
@@ -22,10 +51,6 @@ const HotelTitle = ({ listingData }) => {
                         )}
                     </p>
                     <span> · </span>
-                    {/* <p className="text-xs sm:text-sm">
-                        {listingData?.reviews ? listingData?.reviews : "No reviews"}
-                    </p>
-                    <span> · </span> */}
                     <p className="text-xs sm:text-sm font-medium underline">
                         {listingData?.location?.addressLineOne
                             ? listingData?.location?.addressLineOne
@@ -34,14 +59,14 @@ const HotelTitle = ({ listingData }) => {
                                 : listingData?.location?.country?.name}
                     </p>
                 </div>
-                {/* <div className="col-span-1 md:flex justify-end w-full hidden">
-                    <div className=" flex flex-row-reverse gap-2 items-center cursor-pointer p-2 rounded-md w-[80px] bg-white hover:bg-[#f1f1f1] transition duration-200 ease-in">
-                        <p className=" text-sm underline underline-offset-1 font-medium">
-                            Save
+                <div className="col-span-1 md:flex justify-end w-full hidden">
+                    <div onClick={handleSave} className=" flex flex-row-reverse gap-2 items-center cursor-pointer p-2 rounded-md w-[80px] bg-white hover:bg-[#f1f1f1] transition duration-200 ease-in">
+                        {isSaved ? <AiFillHeart className="fill-red-400" size={18} /> : <AiOutlineHeart size={18} />}
+                        <p className=" text-sm font-medium">
+                            {isSaved ? "Saved" : "Save"}
                         </p>
-                        <AiOutlineHeart size={18} />
                     </div>
-                </div> */}
+                </div>
             </div>
         </div>
     );
