@@ -2,7 +2,7 @@ import React from 'react'
 
 const SkeletonHotelDetails = () => {
     return (
-        <div className="max-w-screen-xl xl:px-12 mx-auto py-7 animate-pulse">
+        <div className="max-w-screen-xl xl:px-12 mx-auto py-7 min-h-screen animate-pulse">
             <div className=" flex flex-col gap-7">
                 <div className=" flex flex-col gap-2">
                     {/* text */}

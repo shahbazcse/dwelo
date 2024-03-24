@@ -13,7 +13,7 @@ const PaymentMethod = ({ showSuccessCard, setShowSuccessCard }) => {
     const [formData, setFormData] = useState({
         cardNo: "",
         expiry: "",
-        cvc: null,
+        cvc: "",
         name: "",
         email: "",
     });

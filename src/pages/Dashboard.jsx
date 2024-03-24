@@ -34,7 +34,7 @@ const Dashboard = () => {
         dispatch(getUserDetails());
     }, []);
     return (
-        <div className="mx-auto max-w-[91rem]">
+        <div className="mx-auto max-w-[91rem] min-h-screen">
             <div className="mx-auto min-h-[44rem] max-w-[64rem] my-4 md:mt-20 md:mb-24 rounded-t-3xl border shadow-md">
                 <div className="flex items-center justify-start sm:justify-end overflow-auto gap-4 p-6 border-b">
                     <Button
