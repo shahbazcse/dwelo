@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import HotelTitle from "../components/hotel/HotelTitle";
 import HotelPhotos from "../components/hotel/HotelPhotos";
 import HotelDescription from "../components/hotel/HotelDescription";
 import DatePicker from "../components/hotel/DatePicker";
 import { getHotelById } from "../services/hotelService";
 import { useDispatch, useSelector } from "react-redux";
+import SkeletonHotelDetails from "../components/skeleton/SkeletonHotelDetails";
 
 const HotelDetails = () => {
+    const [loading, setLoading] = useState(false)
     const params = useParams();
     const dispatch = useDispatch();
 
@@ -18,8 +20,16 @@ const HotelDetails = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(getHotelById(params.id));
-    }, [params.id]);
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            dispatch(getHotelById(params.id));
+        }, 2000)
+    }, [params.id, dispatch]);
+
+    if (loading) {
+        return <SkeletonHotelDetails />
+    }
 
     return (
         <main className="max-w-screen-xl xl:px-12 mx-auto py-12 px-5 sm:px-16 md:px-8">

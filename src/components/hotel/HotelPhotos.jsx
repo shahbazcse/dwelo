@@ -2,6 +2,7 @@ import React from "react";
 
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import placeholder from "../../assets/placeholder.png"
 
 const HotelPhotos = ({ listingData }) => {
     const navigate = useNavigate();
@@ -23,22 +24,22 @@ const HotelPhotos = ({ listingData }) => {
             <div className=" grid grid-cols-1 md:grid-cols-3 gap-2 max-h-[400px] min-h-[300px] overflow-y-hidden rounded-md md:rounded-2xl">
                 <div className=" md:rounded-tl-2xl md:rounded-bl-2xl md:col-span-2">
                     <img
-                        src={listingData?.photos?.[0]}
+                        src={listingData?.photos?.[0] || placeholder}
                         alt="Listing photos"
-                        className=" md:rounded-tl-2xl md:rounded-bl-2xl aspect-video object-cover w-full h-[240px] md:h-full"
+                        className=" md:rounded-tl-2xl md:rounded-bl-2xl aspect-video object-cover w-full h-[240px] md:h-full object-center"
                     />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-none md:grid-rows-2 gap-x-1 md:gap-x-0 gap-y-2 max-h-[400px] min-h-[300px] md:col-span-1">
                     <div className=" overflow-y-hidden">
                         <img
-                            src={listingData?.photos?.[1]}
+                            src={listingData?.photos?.[1] || placeholder}
                             alt="Listing photos"
                             className=" md:rounded-tr-2xl aspect-video object-cover mb-2 w-full h-full"
                         />
                     </div>
                     <div className=" overflow-y-hidden">
                         <img
-                            src={listingData?.photos?.[2]}
+                            src={listingData?.photos?.[2] || placeholder}
                             alt="Listing photos"
                             className=" md:rounded-br-2xl aspect-video object-cover w-full h-full"
                         />
