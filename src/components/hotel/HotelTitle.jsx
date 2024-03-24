@@ -12,7 +12,6 @@ const HotelTitle = ({ listingData }) => {
     const isSaved = userDetails?.favourites.find((hotel) => hotel?.title === listingData?.title);
 
     async function handleSave() {
-        console.log("Reached");
         if (!isProcessing) {
             setIsProcessing(true);
             if (!isSaved) {
