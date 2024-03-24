@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 const Navbar = () => {
     const currentPage = window.location.pathname;
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const { query } = useSelector((state) => state.global);
 
     const handleSearch = (query) => {
+        navigate("/");
         dispatch({ type: "UPDATE_QUERY", payload: String(query) })
     }
 
