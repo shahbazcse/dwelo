@@ -23,6 +23,13 @@ function checkAvailability(userCheckIn, userCheckOut, existingBookings) {
         const existingCheckInDate = new Date(booking.checkIn);
         const existingCheckOutDate = new Date(booking.checkOut);
 
+        if (userCheckInDate.toLocaleDateString() === userCheckOutDate.toLocaleDateString() &&
+            userCheckInDate.toLocaleDateString() === existingCheckInDate.toLocaleDateString() &&
+            userCheckOutDate.toLocaleDateString() === existingCheckOutDate.toLocaleDateString()) 
+        {
+            return false;
+        }
+
         if (
             userCheckInDate < existingCheckOutDate &&
             userCheckOutDate > existingCheckInDate
