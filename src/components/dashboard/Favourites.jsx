@@ -55,7 +55,7 @@ const Favourites = ({ favourites }) => {
                                             <p className="text-sm text-gray-500">Amenities</p>
                                             <p className="line-clamp-1">
                                                 {
-                                                    amenities?.map((i) => (<span>{i}, </span>))
+                                                    amenities?.map((i) => (<span key={i}>{i}, </span>))
                                                 }
                                             </p>
                                         </div>
