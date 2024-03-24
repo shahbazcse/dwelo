@@ -37,7 +37,7 @@ const HotelTitle = ({ listingData }) => {
             <div className=" grid grid-cols-1 md:grid-cols-5 items-center justify-end">
                 <div className="flex flex-row items-center justify-between gap-2 col-span-4">
                     <div className="flex flex-row flex-wrap md:flex-nowrap items-center gap-2 col-span-4">
-                        <p className=" flex flex-row items-center gap-1">
+                        <div className=" flex flex-row items-center gap-1">
                             {listingData?.ratings ? (
                                 <>
                                     <AiFillStar size={16} />
@@ -49,7 +49,7 @@ const HotelTitle = ({ listingData }) => {
                                     <p className="text-xs sm:text-sm">New</p>
                                 </>
                             )}
-                        </p>
+                        </div>
                         <span> · </span>
                         <p className="text-xs sm:text-sm font-medium underline">
                             {listingData?.location?.addressLineOne
