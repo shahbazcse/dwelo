@@ -4,10 +4,18 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import { Button } from "./ui/button";
 import { Search } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
     const currentPage = window.location.pathname;
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const { query } = useSelector((state) => state.global);
+
+    const handleSearch = (query) => {
+        dispatch({ type: "UPDATE_QUERY", payload: String(query) })
+    }
 
     return (
         <div className="flex-1 border-b">
@@ -25,15 +33,17 @@ const Navbar = () => {
                         dwelo
                     </span>
                 </div>
-                {/* <div className="mx-auto lg:block hidden w-[20rem]">
+                <div className="mx-auto lg:block hidden w-[20rem]">
                     <div className="border-[1px] border-[#dddddd] rounded-full px-5 py-3 flex items-center justify-between shadow hover:shadow-md transition-all">
                         <input
+                            value={query}
+                            onChange={(e) => handleSearch(e.target.value)}
                             className=" focus:outline-none"
                             placeholder="Search for places"
                         />
                         <Search className="cursor-pointer text-gray-300" />
                     </div>
-                </div> */}
+                </div>
                 <Button
                     variant="outline"
                     className="hidden sm:flex rounded-full px-8 py-6"
